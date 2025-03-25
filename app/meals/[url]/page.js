@@ -2,10 +2,16 @@ import Image from "next/image";
 import classes from "./page.module.css";
 import { getMeal } from "@/lib/meals";
 
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.url);
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
 export default function MealDetailsPage({ params }) {
   const meal = getMeal(params.url);
-  console.log(params);
-  console.log(meal);
 
   if (!meal) {
     return <p>Meal not found!</p>;
